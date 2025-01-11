@@ -1,17 +1,24 @@
 import OpenAI from 'openai';
 import { PYTHON_BINDINGS_USER_PROMPT, OPENAI_MODEL_SYSTEM_PROMPT } from "./prompts/medsPrompts.js";
 
-export const testGPT = async (apiKey, retryCount = 0) => {
+export const testGPT = async (apiKey, strInput, retryCount = 0) => {
   try {
     if (retryCount > 2) {
-      console.error("Error: Max retries reached. Please try again later.");
+      console.error("Error: Max retries reached. Please try again later");
       return;
     }
 
     if (!apiKey) {
-      console.error("Error: No API key provided. Please ensure you pass a valid OpenAI API key.");
+      console.error("Error: No API key provided. Please ensure you pass a valid OpenAI API key");
       return;
     }
+
+    if(!strInput) {
+      console.error("Error: String Input is required");
+      return;
+    }
+
+    console.log('String Input: ', strInput);
 
     const client = new OpenAI({ apiKey });
 
